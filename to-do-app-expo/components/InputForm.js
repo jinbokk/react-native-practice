@@ -7,9 +7,21 @@ import {
   TextInput,
   Pressable,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../redux/slices/todoSlice";
 
 const InputForm = () => {
+  const [currentValue, setCurrentValue] = useState("");
+  const dispatch = useDispatch();
+
+  const handleSubmit = () => {
+    if (currentValue !== "") {
+      dispatch(addTodo(currentValue));
+      setCurrentValue("");
+    }
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -18,8 +30,11 @@ const InputForm = () => {
       <TextInput
         style={styles.inputField}
         placeholder="Please write down your tasks"
+        value={currentValue}
+        onChangeText={setCurrentValue}
+        onSubmitEditing={handleSubmit}
       />
-      <Pressable style={styles.addButton}>
+      <Pressable style={styles.addButton} onPress={handleSubmit}>
         <Text style={styles.addButtonText}>+</Text>
       </Pressable>
     </KeyboardAvoidingView>

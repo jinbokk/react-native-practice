@@ -1,10 +1,22 @@
-import { Platform, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  Platform,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React from "react";
 import { StatusBar } from "expo-status-bar";
 import InputForm from "../components/InputForm";
 import TodoItem from "../components/TodoItem";
+import { useSelector } from "react-redux";
 
 const MainScreen = () => {
+  const todos = useSelector((state) => state.todo.todos);
+  const todoTasks = todos.filter((item) => item.state === "todo");
+  const completedTasks = todos.filter((item) => item.state === "done");
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={"default"} />
@@ -12,13 +24,30 @@ const MainScreen = () => {
 
       <View>
         <Text style={styles.subTitle}>To Do</Text>
-        <TodoItem />
+        {todoTasks.length !== 0 ? (
+          <FlatList
+            data={todoTasks}
+            renderItem={({ item }) => <TodoItem {...item} />}
+            keyExtractor={(item) => item.id}
+          />
+        ) : (
+          <Text>There are no tasks to do</Text>
+        )}
       </View>
 
       <View style={styles.separator}></View>
 
       <View>
         <Text style={styles.subTitle}>Done</Text>
+        {completedTasks.length !== 0 ? (
+          <FlatList
+            data={completedTasks}
+            renderItem={({ item }) => <TodoItem {...item} />}
+            keyExtractor={(item) => item.id}
+          />
+        ) : (
+          <Text>There are no completed tasks</Text>
+        )}
       </View>
       <InputForm />
     </SafeAreaView>

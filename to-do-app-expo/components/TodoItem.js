@@ -4,18 +4,23 @@ import CheckboxButtonUnchecked from "../assets/checkbox-unchecked.svg";
 import CheckboxButtonChecked from "../assets/checkbox-checked.svg";
 import DeleteButton from "../assets/delete.svg";
 
-const TodoItem = () => {
+const TodoItem = (props) => {
   return (
     <View style={styles.itemContainer}>
       <Pressable
         style={[styles.deleteButton, styles.deleteButtonDone]}
         hitSlop={10}
       >
-        <CheckboxButtonUnchecked />
-        <CheckboxButtonChecked />
+        {props.state === "todo" ? (
+          <CheckboxButtonUnchecked />
+        ) : (
+          <CheckboxButtonChecked />
+        )}
       </Pressable>
 
-      <Text style={[styles.itemText, styles.itemTextChecked]}>Todo_1 test</Text>
+      <Text style={[styles.itemText, styles.itemTextChecked]}>
+        {props.text}
+      </Text>
 
       <Pressable
         style={[styles.deleteButton, styles.deleteButtonDone]}
@@ -32,5 +37,22 @@ export default TodoItem;
 const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: "row",
+  },
+  itemText: {
+    fontSize: 15,
+    lineHeight: 20,
+    marginRight: "auto",
+    paddingRight: "25",
+  },
+  itemTextChecked: {
+    opacity: 0.4,
+    textDecorationLine: "line-through",
+  },
+  deleteButton: {
+    opacity: 0.8,
+  },
+  deleteButtonDone: {
+    color: "gray",
+    alignContent: "flex-end",
   },
 });
