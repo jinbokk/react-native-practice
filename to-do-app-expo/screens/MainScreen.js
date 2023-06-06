@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
   subTitle: {
     fontSize: 25,
     fontWeight: "bold",
+    marginBottom: 15,
   },
   separator: {
     marginTop: 25,
