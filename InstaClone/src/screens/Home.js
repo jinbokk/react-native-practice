@@ -1,9 +1,10 @@
-import {StyleSheet, Text, View, StatusBar, ScrollView} from 'react-native';
+import { StyleSheet, Text, View, StatusBar, ScrollView } from 'react-native';
 import React from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import FontAwsome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import Stories from '../components/Stories';
+import Posts from '../components/Posts';
 
 const Home = () => {
   return (
@@ -20,7 +21,13 @@ const Home = () => {
       </View>
 
       <ScrollView>
-        <Stories />
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <Stories />
+        </ScrollView>
+
+        <ScrollView horizontal={false} showsVerticalScrollIndicator={false}>
+          <Posts />
+        </ScrollView>
       </ScrollView>
     </SafeAreaView>
   );
@@ -37,13 +44,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    margin: 15,
+    marginHorizontal: 25,
+    marginVertical: 15,
     color: 'black',
   },
 
   headerText: {
     fontSize: 25,
-    fontWeight: 500,
+    fontWeight: 600,
     color: 'black',
   },
 
@@ -55,7 +63,7 @@ const styles = StyleSheet.create({
 
   headerPlusIcon: {
     fontSize: 27,
-    marginHorizontal: 10,
+    marginHorizontal: 20,
     color: 'black',
     position: 'relative',
     top: 2,
@@ -63,7 +71,6 @@ const styles = StyleSheet.create({
 
   headerDMIcon: {
     fontSize: 24,
-    marginHorizontal: 10,
     color: 'black',
   },
 });
