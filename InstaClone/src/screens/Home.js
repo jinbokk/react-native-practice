@@ -9,7 +9,7 @@ import Posts from '../components/Posts';
 const Home = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor={'white'} barStyle={'dark-content'} />
+      <StatusBar backgroundColor={'#efefef'} barStyle={'dark-content'} />
       <View style={styles.headerContainer}>
         <View>
           <Text style={styles.headerText}>Instagram</Text>

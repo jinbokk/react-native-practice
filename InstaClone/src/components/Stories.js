@@ -92,7 +92,6 @@ export default Stories;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginBottom: 15,
   },
 
   storyContainer: {
@@ -109,7 +108,7 @@ const styles = StyleSheet.create({
   myStoryBadge: {
     fontSize: 20,
     color: '#405de6',
-    backgroundColor: 'white',
+    backgroundColor: '#efefef',
     borderRadius: 10,
   },
 
