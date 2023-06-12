@@ -13,7 +13,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionic from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-const PostData = [
+const postData = [
   {
     postTitle: 'John',
     postPersonImage: require('../../assets/images/profile1.jpeg'),
@@ -83,7 +83,9 @@ const PostData = [
 ];
 
 const Posts = () => {
-  return PostData.map((item, index) => <PostItem index={index} item={item} />);
+  return postData.map((item, index) => (
+    <PostItem key={index} index={index} item={item} />
+  ));
 };
 
 const PostItem = ({ index, item }) => {
@@ -95,9 +97,10 @@ const PostItem = ({ index, item }) => {
    * ? 좋아요 버튼이나 북마크 버튼 등, 리렌더링이 일어날때 배열 또한 값이 재할당 되는 문제가 발생하여, useRef 훅을 사용하여 리렌더링을 방지하였음
    */
   const randomProfileImage = useRef(
-    PostData.map(item => {
-      return { imageSource: item.postPersonImage, userName: item.postTitle };
-    })
+    postData
+      .map(item => {
+        return { imageSource: item.postPersonImage, userName: item.postTitle };
+      })
       .sort(() => 0.5 - Math.random())
       .slice(0, 3),
   ).current;
@@ -108,7 +111,7 @@ const PostItem = ({ index, item }) => {
         key={index}
         style={[
           styles.postContainer,
-          index + 1 === PostData.length ? { marginBottom: 40 } : null,
+          index + 1 === postData.length ? { marginBottom: 40 } : null,
         ]}>
         <View style={styles.postHeaderContainer}>
           <View style={styles.postUserContainer}>
@@ -234,6 +237,16 @@ const PostItem = ({ index, item }) => {
             style={styles.likedUserImg}
           />
           <Text style={{ paddingLeft: 8, opacity: 0.5 }}>Add a comment...</Text>
+          <TouchableOpacity
+            style={{
+              justifyContent: 'flex-end',
+              marginLeft: 'auto',
+              marginRight: 10,
+            }}>
+            <Text style={{ fontSize: 13, fontWeight: 600, color: '#2a77b8' }}>
+              Post
+            </Text>
+          </TouchableOpacity>
         </View>
 
         <View>
