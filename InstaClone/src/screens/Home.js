@@ -1,5 +1,12 @@
-import { StyleSheet, Text, View, StatusBar, ScrollView } from 'react-native';
-import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  StatusBar,
+  ScrollView,
+  Animated,
+} from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import FontAwsome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
@@ -7,10 +14,50 @@ import Stories from '../components/Stories';
 import Posts from '../components/Posts';
 
 const Home = () => {
+  const [scroll, setScroll] = useState(false);
+  // const fadeIn = useRef(new Animated.Value(0.2)).current;
+
+  const handleScroll = (event) => {
+    if (event.nativeEvent.contentOffset.y > 127) {
+      setScroll(true);
+      console.log(event.nativeEvent.contentOffset.y);
+      // Animated.timing(fadeIn, {
+      //   toValue: 0,
+      //   duration: 10000,
+      //   useNativeDriver: true,
+      // }).start();
+    } else {
+      setScroll(false);
+      // Animated.timing(fadeIn, {
+      //   toValue: 0.2,
+      //   duration: 10000,
+      //   useNativeDriver: true,
+      // }).start();
+    }
+  };
+
+  // useEffect(() => {
+  //   Animated.timing(fadeIn, {
+  //     toValue: 0,
+  //     duration: 1000,
+  //     useNativeDriver: true,
+  //   }).start();
+  // }, [fadeIn]);
+
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor={'#efefef'} barStyle={'dark-content'} />
-      <View style={styles.headerContainer}>
+      <StatusBar backgroundColor={'white'} barStyle={'dark-content'} />
+      <Animated.View
+        style={[
+          styles.headerContainer,
+          scroll
+            ? {
+                borderBottomWidth: 1,
+                borderBottomColor: '#DEDEDE',
+                // borderBottomColor: `rgba(0,0,0,${fadeIn})`,
+              }
+            : null,
+        ]}>
         <View>
           <Text style={styles.headerText}>Instagram</Text>
         </View>
@@ -18,9 +65,12 @@ const Home = () => {
           <FontAwsome name="plus-square-o" style={styles.headerPlusIcon} />
           <Feather name="navigation" style={styles.headerDMIcon} />
         </View>
-      </View>
+      </Animated.View>
 
-      <ScrollView>
+      <ScrollView
+        onScroll={(event) => {
+          handleScroll(event);
+        }}>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           <Stories />
         </ScrollView>
@@ -38,14 +88,15 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
 
   headerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginHorizontal: 25,
-    marginVertical: 15,
+    paddingHorizontal: 25,
+    paddingVertical: 15,
     color: 'black',
   },
 

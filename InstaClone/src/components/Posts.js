@@ -6,7 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import React, { useRef, useState } from 'react';
+import React, { Fragment, useRef, useState } from 'react';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -98,8 +98,11 @@ const PostItem = ({ index, item }) => {
    */
   const randomProfileImage = useRef(
     postData
-      .map(item => {
-        return { imageSource: item.postPersonImage, userName: item.postTitle };
+      .map((item) => {
+        return {
+          imageSource: item.postPersonImage,
+          userName: item.postTitle,
+        };
       })
       .sort(() => 0.5 - Math.random())
       .slice(0, 3),
@@ -136,7 +139,7 @@ const PostItem = ({ index, item }) => {
           <View style={styles.postActionContainer}>
             <TouchableOpacity
               onPress={() => {
-                setLike(prev => !prev);
+                setLike((prev) => !prev);
               }}>
               <AntDesign
                 name={like ? 'heart' : 'hearto'}
@@ -160,7 +163,7 @@ const PostItem = ({ index, item }) => {
           <View>
             <TouchableOpacity
               onPress={() => {
-                setBookmark(prev => !prev);
+                setBookmark((prev) => !prev);
               }}>
               <FontAwesome
                 name={bookmark ? 'bookmark' : 'bookmark-o'}
@@ -176,9 +179,8 @@ const PostItem = ({ index, item }) => {
               {randomProfileImage.map((random, index) => {
                 if (index + 1 === randomProfileImage.length) {
                   return (
-                    <>
+                    <Fragment key={index}>
                       <Image
-                        key={index}
                         source={random.imageSource}
                         style={[
                           styles.likedUserImg,
@@ -195,7 +197,7 @@ const PostItem = ({ index, item }) => {
                           {like ? item.likes + 1 : item.likes} others
                         </Text>
                       </Text>
-                    </>
+                    </Fragment>
                   );
                 } else {
                   return (
@@ -223,7 +225,7 @@ const PostItem = ({ index, item }) => {
               style={styles.postCommentText}>
               {item.comment}
             </Text>
-            <TouchableOpacity onPress={() => setReadMore(prev => !prev)}>
+            <TouchableOpacity onPress={() => setReadMore((prev) => !prev)}>
               {readMore ? null : (
                 <Text style={styles.readMoreText}>Read more</Text>
               )}

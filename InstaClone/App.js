@@ -5,7 +5,7 @@ import Home from './src/screens/Home';
 import Search from './src/screens/Search';
 import Profile from './src/screens/Profile';
 import Activity from './src/screens/Activity';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import Status from './src/screens/Status';
 import FriendProfile from './src/screens/FriendProfile';
 import EditProfile from './src/screens/EditProfile';
@@ -13,6 +13,14 @@ import Ionic from 'react-native-vector-icons/Ionicons';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: 'rgb(255, 255, 255)',
+  },
+};
+
 const BottomTabScreen = () => {
   return (
     <Tab.Navigator
@@ -50,7 +58,7 @@ const BottomTabScreen = () => {
 
 const App = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={MyTheme}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Bottom" component={BottomTabScreen} />
         <Stack.Screen name="Status" component={Status} />

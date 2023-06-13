@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-    width: '94%',
-    paddingVertical: 10,
+    width: '90%',
+    paddingVertical: 20,
     position: 'relative',
   },
 

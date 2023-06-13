@@ -7,15 +7,18 @@ import { FriendsProfileData } from '../components/DataBase';
 
 const Activity = () => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ backgroundColor: 'white' }}>
       <Text style={styles.mainText}>Activity</Text>
 
-      <ScrollView style={{ margin: 10 }}>
-        {FriendsProfileData.slice(0, 3).map((data, index) => {
+      <ScrollView
+        contentContainerStyle={{ paddingHorizontal: 15 }}
+        showsVerticalScrollIndicator={false}>
+        <ActivityThisWeek />
+        {/* {FriendsProfileData.slice(0, 3).map((data, index) => {
           return <ActivityThisWeek data={data} key={index} />;
-        })}
+        })} */}
 
-        <Text style={styles.sectionText}>Recent Activity</Text>
+        <Text style={styles.sectionText}>Previous Activity</Text>
         {FriendsProfileData.slice(3, 6).map((data, index) => {
           return <ActivityPrevious data={data} key={index} />;
         })}
@@ -33,11 +36,11 @@ export default Activity;
 
 const styles = StyleSheet.create({
   mainText: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     borderBottomWidth: 0.5,
     borderBottomColor: '#DEDEDE',
-    padding: 10,
+    padding: 15,
   },
 
   sectionText: {
